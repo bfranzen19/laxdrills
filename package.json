@@ -1,0 +1,32 @@
+{
+  "name": "laxdrills",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfranzen19/laxdrills.git"
+  },
+  "author": "bt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bfranzen19/laxdrills/issues"
+  },
+  "homepage": "https://github.com/bfranzen19/laxdrills#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "client-sessions": "^0.8.0",
+    "express": "^4.17.1",
+    "fs": "*",
+    "fuse": "^0.0.8",
+    "fuse.js": "^3.6.1",
+    "http": "*",
+    "https": "^1.0.0",
+    "mongoose": "^5.12.2"
+  }
+}

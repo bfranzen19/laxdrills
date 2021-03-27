@@ -9,6 +9,11 @@ const HTTP = require('http');
 const HTTPS = require('https');
 const fs = require('fs');
 
+/* login */
+const bcrypt = require('bcryptjs');
+const sessionsModule = require('client-sessions');
+const secrets = require('./secrets.js');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -16,7 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('./public'));
 
 /* sessions */
-const sessionseMiddleware = sessionModule({
+const sessionseMiddleware = sessionsModule({
     cookieName: 'drills_login',
     secret: secrets.cookieSecret,
     requestKey: 'session',
@@ -29,12 +34,16 @@ const sessionseMiddleware = sessionModule({
 app.use(sessionseMiddleware);
 
 /* database stuffz */
-mongoose.connect('mongodb://localhost:27017/laxdrills', {useMongoClient:true}, function(mongooseErr) {
+/*
+mongoose.connect('mongodb://localhost:27017/laxdrills', //{useMongoClient:true},
+{ useNewUrlParser: true },
+{ useUnifiedTopology: true },
+ function(mongooseErr) {
   if(mongooseErr) { console.log('mongoose error: ' + mongooseErr); }
   else { console.log('mongoose ACTIVAAAATE!'); }
 })
 mongoose.Promise = global.Promise
-
+*/
 /* user data */
 const UserSchema = new mongoose.Schema({
   username: {
@@ -53,9 +62,22 @@ const UserSchema = new mongoose.Schema({
 })
 const User = mongoose.model('User', UserSchema);
 
+const DrillSchema = new mongoose.Schema({
+    id: {
+        type:     String,
+        required: true,
+        unique:   true,
+    },
+    type: {
+        type:     String,
+        required: true
+    }
+});
+let DrillModel = mongoose.model('drill', DrillSchema);
+
 /* separate DB for testing */
 const DrillModelTest =
-mongoose.model('test_drill_model', DrillModelTest);
+mongoose.model('test_drill_model', DrillSchema);
 
 /* authentication stuff */
 let checkIfLoggedIn = function(req,res,next) {
@@ -231,8 +253,9 @@ try {
 catch(e) {
     console.log('server error: ' + e);
     console.log('could not start HTTPS server');
+    
     const httpServer = HTTP.createServer(app);
-    httpServer.listen(80);
+    httpServer.listen(8080);
 }
 
 // app.listen(8080, function() {

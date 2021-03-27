@@ -3,15 +3,12 @@ console.log('js is linked, yo');
 Vue.component('main-nav', {
   template: `
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/" id="brand"> TriggerAware </a>
+      <a class="navbar-brand" href="/" id="brand"> lax drills app </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/"> home <span class="sr-only">(current)</span></a>
-            </li>
           <li class="nav-item">
             <a class="nav-link" href="/about"> about <span class="sr-only">(current)</span></a>
           </li>
@@ -54,7 +51,6 @@ Vue.component('logged-in', {
     </div>
   `,
 });
-
 
 var mainVM = new Vue({
   el: '#app',

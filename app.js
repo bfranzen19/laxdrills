@@ -12,7 +12,7 @@ const DrillSchema = new mongoose.Schema({
         required: true,
         unique:   true,
     },
-    type {
+    type: {
         type:     String,
         required: true
     }
