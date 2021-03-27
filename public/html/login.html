@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> laxdrills.app </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <html lang="en">
+
+        <!-- vue -->
+        <script src="https://unpkg.com/vue@next"></script>
+
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+        <!-- main CSS -->
+        <link rel="stylesheet" href="/css/main.css"/>
+
+        <!-- google fonts -->
+
+        <!-- favicon -->
+        <link rel="icon" type="image/png" href="/img/favicomatic/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="/img/favicomatic/favicon-16x16.png" sizes="16x16" />
+    </head>
+    <body>
+      <div id="app">
+        <main-nav></main-nav>
+
+        <div class="container-fluid">
+          <div class="row col-xs-12">
+            <h1 class="headers"> are you me? </h1>
+          </div>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="row col-xs-12">
+                <form v-on:submit.prevent="login">
+                    <div id="login">
+                        <div>
+                            <label for="userName">username: </label>
+                            <input type="text" name="userName" placeholder="username" v-model="loginForm.username"/>
+                        </div>
+                        <div>
+                            <label for="password">password: </label>
+                            <input type="password" name="password" placeholder="password" v-model="loginForm.password"/>
+                        </div>
+                        <div id="loginSubmit">
+                            <input type="submit" value="login"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div> <br /><hr />
+        <div v-show="showValidate">
+            <logged-in ></logged-in>
+        </div>
+
+        <div id="footer">
+            <main-footer url="http://btfranzen.com"></main-footer>
+        </div>
+
+      </div>  <!-- z app -->
+
+      <!-- bootstrap -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+      
+      <!-- main JS -->
+      <script src="/js/main.js"></script>
+    </body>
+</html>
