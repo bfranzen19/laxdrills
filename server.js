@@ -1,5 +1,8 @@
 /* required modules */
 const express = require('express');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Fuse = require('fuse.js');    // search
@@ -34,15 +37,17 @@ const sessionseMiddleware = sessionsModule({
 app.use(sessionseMiddleware);
 
 /* database stuffz */
+const url = 'mongodb://localhost:27017';
+const dbName = 'laxdrills';
+const client = new MongoClient(url);
 /*
-mongoose.connect('mongodb://localhost:27017/laxdrills', //{useMongoClient:true},
-{ useNewUrlParser: true },
-{ useUnifiedTopology: true },
- function(mongooseErr) {
-  if(mongooseErr) { console.log('mongoose error: ' + mongooseErr); }
-  else { console.log('mongoose ACTIVAAAATE!'); }
-})
-mongoose.Promise = global.Promise
+client.connect(function(err) {
+    assert.equal(null,err);
+    console.log('mongo aaaAAACCCTTTIIIVVVAAATTTEEE');
+
+    const db = client.db(dbName);
+    client.close();
+});
 */
 /* user data */
 const UserSchema = new mongoose.Schema({
@@ -76,10 +81,10 @@ const DrillSchema = new mongoose.Schema({
 let DrillModel = mongoose.model('drill', DrillSchema);
 
 /* separate DB for testing */
-const DrillModelTest =
-mongoose.model('test_drill_model', DrillSchema);
+const DrillModelTest = mongoose.model('test_drill_model', DrillSchema);
 
 /* authentication stuff */
+/*
 let checkIfLoggedIn = function(req,res,next) {
   if(req.session._id) {
     console.log('user is logged in. proceeding to the next route handler.');
@@ -87,21 +92,37 @@ let checkIfLoggedIn = function(req,res,next) {
   }
   else { res.redirect('/'); }
 }
-
+*/
 /* authentication middleware */
+/*
 app.use(function(req,res,next) {
   console.log('session?', req.session);
   // res.sendFile('./public/html/index.html', {root:'./'})
   next();
 });
-
+*/
 /* routes */
 app.get('/', function(req,res) {
-  res.sendFile('./public/html/index.html', {root:'./'})
+    res.sendFile('./public/html/index.html', {root:'./'})
 });
 
+app.get('/test', function(req,res) {
+    let file = __dirname + "/json/attack.json";
+
+    fs.readFile(file, 'utf8', function (err, data) {
+      if(err) {
+          console.log('error: ' + err);
+          res.send(err);
+      }
+      else { res.send(data); }
+
+   });
+});
+
+// drills, plays, sort by (type, name,url)
+
 app.get('/search', function(req,res) {
-  res.sendFile('./public/html/search.html', {root:'./'})
+    res.sendFile('./public/html/search.html', {root:'./'})
 });
 
 app.post('/searchType', function(req,res) {
@@ -229,7 +250,9 @@ app.get('/logout', function(req,res) {
   res.redirect('/login');
 });
 
+
 /* -=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
 app.use(function(req,res,next) {
   res.status(404);
   res.send(`that's a 404 error, yo.`);
@@ -253,7 +276,7 @@ try {
 catch(e) {
     console.log('server error: ' + e);
     console.log('could not start HTTPS server');
-    
+
     const httpServer = HTTP.createServer(app);
     httpServer.listen(8080);
 }

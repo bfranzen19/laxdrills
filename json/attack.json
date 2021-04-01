@@ -1,0 +1,23 @@
+{
+    "drill0" : {
+        "id": 0,
+        "name": "attack0",
+        "type": "feeder",
+        "drillURL": "www.shutit.com"
+    },
+
+    "drill1" : {
+        "id": 1,
+        "name": "attack1",
+        "type": "redefend",
+        "drillURL": "www.shutit.com/poop"
+    },
+
+    "drill2" : {
+        "id": 2,
+        "name": "attack2",
+        "type": "cutting",
+        "drillURL": "www.shutit.com/turds"
+    },
+
+}

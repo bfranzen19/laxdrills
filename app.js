@@ -17,5 +17,4 @@ const DrillSchema = new mongoose.Schema({
         required: true
     }
 });
-
 let DrillModel = mongoose.model('drill', DrillSchema);
