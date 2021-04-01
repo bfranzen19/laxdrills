@@ -20,4 +20,10 @@
         "drillURL": "www.shutit.com/turds"
     },
 
+    "i_did_it" : {
+        "id": "i_win!",
+        "this_is" : "my_api!",
+        "type" : "feeder"
+    }
+
 }
