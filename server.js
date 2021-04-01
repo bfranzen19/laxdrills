@@ -114,7 +114,28 @@ app.get('/test', function(req,res) {
           console.log('error: ' + err);
           res.send(err);
       }
-      else { res.send(data); }
+      else {
+          let results = [];
+          let drills = [];
+          let returned_data = JSON.parse(data);
+
+          for(i in returned_data) { drills.push(returned_data[i]); }
+
+          drills.forEach(item => {
+              /* returns all drills */
+              results.push(item);
+
+              /* allows search by type */
+            // if(item.type === 'feeder') {
+            //     results.push(item);
+            // }
+          });
+
+
+          if(results.length > 0) { res.send(results); }
+          else { res.send("no results found"); }
+          //res.send(data);
+      }
 
    });
 });
@@ -259,13 +280,13 @@ app.use(function(req,res,next) {
 });
 
 try {
-      const httpsConfig = {
+    const httpsConfig = {
         key: fs.readFileSync('/etc/letsencrypt/live/laxdrills.app/privkey.pem'),
         cert: fs.readFileSync('/etc/letsencrypt/live/laxdrills.app/cert.pem'),
-      }
+    }
 
-      const httpsServer = HTTPS.createServer(httpsConfig, app);
-      httpsServer.listen(443);
+    const httpsServer = HTTPS.createServer(httpsConfig, app);
+    httpsServer.listen(443);
 
     const httpApp = express();
     httpApp.use(function(req,res,next) {
@@ -274,13 +295,8 @@ try {
     httpApp.listen(80);
 }
 catch(e) {
-    console.log('server error: ' + e);
-    console.log('could not start HTTPS server');
+    // console.log('server error: ' + e + '\ncould not start HTTPS server');
 
     const httpServer = HTTP.createServer(app);
     httpServer.listen(8080);
 }
-
-// app.listen(8080, function() {
-//   console.log('running on 8080')
-// })
